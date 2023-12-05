@@ -12,5 +12,10 @@ public interface PersonRepository extends JpaRepository<Person, Long> {
                     "from Person p " +
                     "where p.id = ?1 "
     )
+    /**
+     * @param id
+     */
     Boolean isPersonExistById(long id);
+
+    Person findDistinctByEmail(String email);
 }
