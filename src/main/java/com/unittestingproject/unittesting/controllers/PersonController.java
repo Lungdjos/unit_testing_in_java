@@ -4,6 +4,9 @@ import com.unittestingproject.unittesting.pojos.PersonDto;
 import com.unittestingproject.unittesting.services.PersonService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,11 +22,19 @@ public class PersonController {
     private final PersonService personService;
 
     @GetMapping(value = "/")
-    public String signupPage(){ return "login/signup";}
+    public String signupPage(){
+        return "login/signup";
+    }
     @PostMapping(value = "/addPerson")
-    public ModelAndView creatPerson(@RequestBody PersonDto requestData){
+    public ModelAndView creatPerson(@Validated PersonDto personDto, BindingResult result, Model model){
         ModelAndView modelAndView = new ModelAndView("index");
-        Map<String, Object> map = personService.creatPerson(requestData);
+
+        if(result.hasErrors()){
+            modelAndView = new ModelAndView("/person-controller/");
+            return modelAndView;
+        }
+
+        Map<String, Object> map = personService.creatPerson(personDto);
 
         modelAndView.addAllObjects(map);
 

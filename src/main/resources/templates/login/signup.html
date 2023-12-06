@@ -7,7 +7,34 @@
 <body>
 <header></header>
 <main>
-    <form></form>
+    <div>
+        <form id="sign-up-form"
+              action="#"
+              th:action="@{/person-controller/addPerson}"
+              method="post"
+              th:object="${personDto}">
+            <div>
+                <label for="first-name">First Name</label>
+                <input type="text" th:field="*{fName}" id="first-name" placeholder="First Name" required>
+                <span th:if="${#fields.hasErrors('fName')}" th:errors="*{fName}"></span>
+
+                <label for="last-name">Last Name</label>
+                <input type="text" th:field="*{lName}" id="last-name" placeholder="Last Name" required>
+                <span th:if="${#fields.hasErrors('lName')}" th:errors="*{lName}"></span>
+
+                <label for="email">Email</label>
+                <input type="text" th:field="*{email}" id="email" placeholder="Email" required>
+                <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+
+                <label for="first-name">City Name</label>
+                <input type="text" th:field="*{cityName}" id="city-name" placeholder="City Name" required>
+                <span th:if="${#fields.hasErrors('cityName')}" th:errors="*{cityName}"></span>
+
+                <input type="submit" value="Add Person">
+            </div>
+        </form>
+    </div>
+
 </main>
 </body>
 </html>
