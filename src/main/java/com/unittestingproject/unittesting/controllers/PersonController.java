@@ -17,15 +17,17 @@ import java.util.Map;
 
 @Controller
 @AllArgsConstructor
-@RequestMapping(value = "/person-controller")
+@RequestMapping("/person-controller")
 public class PersonController {
     private final PersonService personService;
 
-    @GetMapping(value = "/")
-    public String signupPage(){
-        return "login/signup";
+    @GetMapping("/")
+    public ModelAndView signupPage(PersonDto personDto){
+        ModelAndView modelAndView = new ModelAndView("login/signup");
+        modelAndView.addObject("personDto", personDto);
+        return modelAndView;
     }
-    @PostMapping(value = "/addPerson")
+    @PostMapping("/addPerson")
     public ModelAndView creatPerson(@Validated PersonDto personDto, BindingResult result, Model model){
         ModelAndView modelAndView = new ModelAndView("index");
 

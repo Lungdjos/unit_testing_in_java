@@ -2,39 +2,62 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Sign-Up Page</title>
+    <link href="/css/main.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 </head>
-<body>
-<header></header>
-<main>
-    <div>
-        <form id="sign-up-form"
-              action="#"
-              th:action="@{/person-controller/addPerson}"
-              method="post"
-              th:object="${personDto}">
-            <div>
-                <label for="first-name">First Name</label>
-                <input type="text" th:field="*{fName}" id="first-name" placeholder="First Name" required>
-                <span th:if="${#fields.hasErrors('fName')}" th:errors="*{fName}"></span>
+<body class="bg-dark-subtle text-emphasis-dark">
+<header class="sticky-sm-top">
+    <nav class="navbar bg-body-tertiary">
+        <div class="container-fluid">
+            <h1 class="text-center">Registration Form</h1>
+        </div>
+    </nav>
+</header>
+<main class="align-items-center">
+    <div class="row d-flex my-3 align-items-center justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body m-3">
+                    <h3 class="text-center">Add User</h3>
+                    <form id="sign-up-form"
+                          action="#"
+                          th:action="@{/person-controller/addPerson}"
+                          method="post"
+                          th:object="${personDto}">
+                        <div class="mb-3">
+                            <label for="first-name" class="form-label">First Name</label>
+                            <input type="text" th:field="*{fName}" class="form-control" id="first-name" placeholder="First Name" required>
+                            <span th:if="${#fields.hasErrors('fName')}" th:errors="*{fName}"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label for="last-name" class="form-label">Last Name</label>
+                            <input type="text" th:field="*{lName}" class="form-control" id="last-name" placeholder="Last Name" required>
+                            <span th:if="${#fields.hasErrors('lName')}" th:errors="*{lName}"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="text" th:field="*{email}" class="form-control" id="email" placeholder="Email" required>
+                            <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+                        </div>
+                        <div class="mb-3 col-auto">
+                            <label for="first-name" class="form-label">City Name</label>
+                            <input type="text" th:field="*{cityName}" class="form-control" id="city-name" placeholder="City Name" required>
+                            <span th:if="${#fields.hasErrors('cityName')}" th:errors="*{cityName}"></span>
+                        </div>
+                        <input type="submit" class="btn btn-primary" value="Add User">
+                    </form>
+                </div>
 
-                <label for="last-name">Last Name</label>
-                <input type="text" th:field="*{lName}" id="last-name" placeholder="Last Name" required>
-                <span th:if="${#fields.hasErrors('lName')}" th:errors="*{lName}"></span>
-
-                <label for="email">Email</label>
-                <input type="text" th:field="*{email}" id="email" placeholder="Email" required>
-                <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
-
-                <label for="first-name">City Name</label>
-                <input type="text" th:field="*{cityName}" id="city-name" placeholder="City Name" required>
-                <span th:if="${#fields.hasErrors('cityName')}" th:errors="*{cityName}"></span>
-
-                <input type="submit" value="Add Person">
             </div>
-        </form>
+        </div>
     </div>
-
 </main>
+<footer class="text-center m-0">
+    <p>All rights reserved Coptright (c)2023 - Radix Enterprise Ltd.</p>
+</footer>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
 </body>
 </html>
