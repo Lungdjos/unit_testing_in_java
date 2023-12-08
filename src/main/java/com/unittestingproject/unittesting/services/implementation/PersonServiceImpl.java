@@ -8,10 +8,7 @@ import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 @Service
 @AllArgsConstructor
@@ -43,7 +40,8 @@ public class PersonServiceImpl implements PersonService {
                 map.put("status", "SUCCESS");
                 map.put("message", "User added successfully.");
 
-                map.put("data", personObj);
+                List<Person> personObjs = personRepository.findAll();
+                map.put("personObjs", personObjs);
 
             } else {
                 map.put("status", "ERROR");

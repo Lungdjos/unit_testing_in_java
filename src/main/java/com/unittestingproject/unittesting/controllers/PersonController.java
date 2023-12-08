@@ -32,14 +32,17 @@ public class PersonController {
         ModelAndView modelAndView = new ModelAndView("index");
 
         if(result.hasErrors()){
-            modelAndView = new ModelAndView("/person-controller/");
+            modelAndView = new ModelAndView("/");
             return modelAndView;
         }
+        var person = personService.creatPerson(personDto);
 
-        Map<String, Object> map = personService.creatPerson(personDto);
-
-        modelAndView.addAllObjects(map);
-
-        return modelAndView;
+        if(person.get("status").equals("SUCCESS")){
+            modelAndView.addObject("persons", person.get("personObjs"));
+            return modelAndView;
+        }else {
+            modelAndView = new ModelAndView("/");
+            return modelAndView;
+        }
     }
 }
