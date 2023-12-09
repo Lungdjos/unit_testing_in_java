@@ -1,6 +1,7 @@
 package com.unittestingproject.unittesting.controllers;
 
 import com.unittestingproject.unittesting.pojos.PersonDto;
+import com.unittestingproject.unittesting.repo.PersonRepository;
 import com.unittestingproject.unittesting.services.PersonService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -20,6 +21,7 @@ import java.util.Map;
 @RequestMapping("/person-controller")
 public class PersonController {
     private final PersonService personService;
+    private final PersonRepository personRepository;
 
     @GetMapping("/")
     public ModelAndView signupPage(PersonDto personDto){
@@ -44,5 +46,11 @@ public class PersonController {
             modelAndView = new ModelAndView("/");
             return modelAndView;
         }
+    }
+    @GetMapping(value = "/home")
+    public ModelAndView navigateHome(){
+        ModelAndView modelAndView = new ModelAndView("index");
+        modelAndView.addObject("persons", personRepository.findAll());
+        return modelAndView;
     }
 }
