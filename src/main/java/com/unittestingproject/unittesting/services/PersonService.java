@@ -10,4 +10,6 @@ import java.util.Map;
 public interface PersonService {
     List<Person> getAllPerson();
     Map<String, Object> creatPerson(PersonDto personDto);
+
+    List<Person> updatePerson(long id, Person person);
 }

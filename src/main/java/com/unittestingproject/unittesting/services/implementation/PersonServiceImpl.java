@@ -6,12 +6,15 @@ import com.unittestingproject.unittesting.repo.PersonRepository;
 import com.unittestingproject.unittesting.services.PersonService;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
+import lombok.extern.log4j.Log4j2;
+import org.hibernate.ObjectNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
 
 @Service
 @AllArgsConstructor
+@Log4j2
 public class PersonServiceImpl implements PersonService {
     private final PersonRepository personRepository;
     @Override
@@ -19,6 +22,11 @@ public class PersonServiceImpl implements PersonService {
         return this.personRepository.findAll();
     }
 
+    /**
+     *  the method that creates a person and saves to the DB
+     * @param personDto
+     * @return
+     */
     @Override
     @Transactional
     public Map<String, Object> creatPerson(PersonDto personDto) {
@@ -29,6 +37,7 @@ public class PersonServiceImpl implements PersonService {
 
             // validations to avoid duplicates
             if(Objects.isNull(person)){
+                log.info("Creating a User object");
                 // create person object
                 personObj.setFName(personDto.getFName());
                 personObj.setLName(personDto.getLName());
@@ -43,6 +52,7 @@ public class PersonServiceImpl implements PersonService {
                 List<Person> personObjs = personRepository.findAll();
                 map.put("personObjs", personObjs);
 
+                log.info("Successfully created a user.");
             } else {
                 map.put("status", "ERROR");
                 map.put("message", "User with this email address " + personDto.getEmail() + " already exists.");
@@ -53,5 +63,14 @@ public class PersonServiceImpl implements PersonService {
             map.put("message", "You cannot save a null object of a person.");
             return map;
         }
+    }
+
+    @Override
+    @Transactional
+    public List<Person> updatePerson(long id, Person person) {
+        // finding the object by id
+        var personToUpdate = personRepository.findById(id);
+        personRepository.save(person);
+        return personRepository.findAll();
     }
 }
