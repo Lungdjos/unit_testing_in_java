@@ -71,6 +71,21 @@ public class PersonServiceImpl implements PersonService {
         // finding the object by id
         var personToUpdate = personRepository.findById(id);
         personRepository.save(person);
+        return findAllPersons();
+    }
+
+    @Override
+    public void deletePerson(long id) {
+        var personToDelete = personRepository.findById(id);
+        if(Objects.nonNull(personToDelete)){
+            personRepository.deleteById(id);
+        }else {
+            throw new ObjectNotFoundException(personToDelete, "The object is not available in the database.");
+        }
+    }
+
+    @Override
+    public List<Person> findAllPersons() {
         return personRepository.findAll();
     }
 }

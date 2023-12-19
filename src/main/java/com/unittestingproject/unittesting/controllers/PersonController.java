@@ -50,7 +50,7 @@ public class PersonController {
     @GetMapping(value = "/home")
     public ModelAndView navigateHome(){
         ModelAndView modelAndView = new ModelAndView("index");
-        modelAndView.addObject("persons", personRepository.findAll());
+        modelAndView.addObject("persons", personService.findAllPersons());
         return modelAndView;
     }
 }
